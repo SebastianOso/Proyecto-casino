@@ -1,5 +1,5 @@
-#ifndef JUGADOR
-#define JUGADOR
+#ifndef JUGADOR_H
+#define JUGADOR_H
 #include <iostream>
 #include <string>
 #include <vector>
@@ -17,7 +17,7 @@ class Jugador{
         int getBankroll();
         void setNombre(string nomb);
         void setBankroll(int bank);
-        int apuesta(); //actualiza el bankroll dependiendo de cuanto aposto
+        int restarapuesta(int); //actualiza el bankroll dependiendo de cuanto aposto
         void printInfojugador();
         //no se necesita el getDealer ni el getJugador ya que pienso que no es necesario para 
 };
@@ -48,8 +48,9 @@ void Jugador :: setBankroll(int bank){
     bankroll = bank;
 }
 
-int Jugador :: apuesta(){
-
+int Jugador :: restarapuesta(int apo){
+    bankroll = bankroll-apo;
+    return bankroll;
 }
         
 void Jugador :: printInfojugador(){
