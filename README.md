@@ -13,6 +13,6 @@ y simplemente para compilar escribes:
 
     g++ main.cpp -o main.exe
   
-Despues simplemente en consola lo corres
+Despues lo corres en consola con el siguiente comando
 
     main.exe
