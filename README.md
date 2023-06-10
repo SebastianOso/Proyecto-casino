@@ -8,7 +8,8 @@ De esta manera el usuario puede aprender a jugar o simplemente pasar el rato jug
 ## Como se va a resolver:
 Se va a resolver haciendo una clase padre que se llamará "Juego" y este va a tener atributos como: dealer y jugadores, por lo tanto después de esta clase vamos a tener las clases de "Ruleta" y "crash" que van a heredar los metodos de la clase madre de "Juego", al igual que también se van a hacer uso de composición, creando clases de "Jugador" y tambien se puede hacer agregacion con una clase que se llame "Dealer" esto porque en los juegos se necesita de un jugador pero los juegos de casino no todos necesariamente tienen un dealer, y en general después de esto simplemente en el cpp es hacer un cilo while para jugar y hacer los algoritmos para que el usuario juegue ruleta o crash
 
-Para compilar solo es:
+Para compilar te tienes que descargar todos los .h al igual que el main y guardarlos en una misma carpeta 
+y simplemente para compilar escribes:
 
     g++ main.cpp -o main.exe
   
