@@ -9,17 +9,17 @@ using namespace std;
 class Jugador{
     private:
         string nombre;
-        int bankroll; // es el dinero total destinado a apostar
+        float bankroll; // es el dinero total destinado a apostar
     public:
         Jugador();
         Jugador(string,int);
         string getNombre();
-        int getBankroll();
+        float  getBankroll();
         void setNombre(string nomb);
-        void setBankroll(int bank);
-        int restarapuesta(int); //actualiza el bankroll dependiendo de cuanto aposto
+        void setBankroll(float bank);
         void printInfojugador();
-        //no se necesita el getDealer ni el getJugador ya que pienso que no es necesario para 
+        Jugador operator+(Jugador& jugi1);
+        Jugador operator-(Jugador& jugi1);
 };
 
 Jugador :: Jugador(){
@@ -36,7 +36,7 @@ string Jugador :: getNombre(){
     return nombre;
 }
 
-int Jugador :: getBankroll(){
+float Jugador :: getBankroll(){
     return bankroll;
 }
 
@@ -44,18 +44,27 @@ void Jugador :: setNombre(string nomb){
     nombre = nomb;
 }
         
-void Jugador :: setBankroll(int bank){
+void Jugador :: setBankroll(float bank){
     bankroll = bank;
-}
-
-int Jugador :: restarapuesta(int apo){
-    bankroll = bankroll-apo;
-    return bankroll;
 }
         
 void Jugador :: printInfojugador(){
     cout << "Nombre: " << nombre << endl;
-    cout << "Dinero en cuenta: " << bankroll << endl;
+    cout << "Dinero en cuenta: " << bankroll << endl<<endl;
 }
+
+//aqui esta la sobrecarga de operadores
+Jugador Jugador::operator+(Jugador& jugi1){ 
+  Jugador j3;
+  j3.bankroll=this->bankroll + jugi1.getBankroll();
+  return j3;
+}
+
+Jugador Jugador::operator-(Jugador& jugi1){
+  Jugador j3;
+  j3.bankroll=this->bankroll - jugi1.getBankroll();
+  return j3;
+}
+
 
 #endif

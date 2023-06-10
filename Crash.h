@@ -1,84 +1,68 @@
 #ifndef CRASH_H
 #define CRASH_H
-#include <iostream>
+#include "Juego.h" 
 #include <cmath>
 #include <cstdlib>
-#include "Juego.h"
+#include <iomanip>
+#include <iostream>
+#include <random>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
-class Crash:public Juego{
-    private:
+class Crash : public Juego {
+private:
 
-        string crash_id;
-        int multiplicador;
+  int multiplicador;
 
-    public:
-
-        Crash(Jugador);
-        string crearID();
-        int crearMultiplicador();//recibe el ID 
-        int getMultiplicador();
-        string getID();
-        int pagarapuesta(int,int) override;
-    //poner en el costructor solo al jugador porque aqui no necesitas dealer
-
+public:
+  Crash(Jugador);
+  double crearMultiplicador(); // recibe el ID
+  double getMultiplicador();
+  float pagarapuesta(double, int) override;
+  string jugando();
+  // poner en el costructor solo al jugador porque aqui no necesitas dealer
 };
 
-Crash :: Crash(Jugador jugadorsinho) : Juego("Crash", jugadorsinho){
+Crash ::Crash(Jugador jugadorsinho) : Juego("Crash", jugadorsinho) { 
+  //se usa la herencia de manera correcta y sobrecarga de operadore
+  ///
 }
 
-// el metodo de crearID y el de crear multiplicador es mas o menos como lo hace el source code
-// de la pagina del casino en linea roobet
-string Crash :: crearID(){
-    
-    //se va a hacer un string con las letras(a,b,c,d,e,f) y numeros(del 0 al 9) ya que estos son los
-    //caracteres que tienen en hexadecimal 
-    
-    string strtorand = "abcdef0123456789";
-    string inputtohex = ""; //esta vacio este string porque mas adelante se le incluiran 10 caracteres de strtorand
-                            //todo esto para que con la funcion sha256 cree un string hexadecimal
 
-    srand((unsigned) time(NULL)); //ayuda a generar un numero random y que no siempre sea el mismo
+double Crash ::crearMultiplicador() {//es practicamente un setter pero a la vez no
+  //Referencia:
+  //Este codigo fue recuperado de: https://stackoverflow.com/questions/19652657/c-create-a-random-decimal-between-0-1-and-10
+  //y se cambiaron 2 cosas pero la mayoria de esta funcion esta basada en ese articulo
+  random_device rd;
+  mt19937 gen(rd());
 
-    for (int i = 1; i <= 64; i++) {
-        int random = rand() % 17;
-        inputtohex += strtorand[random];
-    }
-    crash_id = inputtohex;
-    inputtohex.clear();//se limpia la variable para que el string quede vacio
-    return crash_id;
+  //rango de valores minimos y maximos se excluyen al final
+  double min = .99;
+  double max = 10.1;
+
+  uniform_real_distribution<double> dis(min, max);
+
+  //se crea un numero decimal random
+  double randomDecimal = dis(gen);
+  //aqui se redondea el numero decimal
+  randomDecimal = floor(randomDecimal * 10.0) / 10.0;
+
+  return randomDecimal;
 }
 
-int Crash :: crearMultiplicador(){
-    
-    if (std::stoi(crash_id, nullptr, 16) % 33 == 0) {
-        multiplicador = 1;
-        return multiplicador;
-    }
 
-    string crashstr = crash_id.substr(0, 13);
-
-    int hfinal = std::stoi(crashstr, nullptr, 16);//despues de que se creo nuestro string hexadecimal
-                                                  //lo que sigue es pasarlo de hexadecimal a decimal  
-                                                  //y asi es como se obtiene nuestro multiplicador del cohete
-    long long e = pow(2, 52);
-
-    double result = ((100.0 * e - hfinal) / (e - hfinal)) / 100.0;
-
-    multiplicador = result;
-    return multiplicador;
+double Crash ::getMultiplicador() { 
+  return multiplicador; 
 }
 
-string Crash :: getID(){
-    return crash_id;
+float Crash ::pagarapuesta(double multipliact, int apu) {
+  return (multipliact * apu);
 }
 
-int Crash :: getMultiplicador(){
-    return multiplicador;
+string Crash::jugando(){
+  return "Estas jugando Crash";
 }
 
-int Crash :: pagarapuesta(int multipliact, int apu){
-    return (multipliact*apu);
-}
 #endif
