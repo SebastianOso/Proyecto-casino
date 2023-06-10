@@ -10,8 +10,8 @@ Se va a resolver haciendo una clase padre que se llamará "Juego" y este va a te
 
 Para compilar solo es:
 
-  g++ main.cpp -o main.exe
+    g++ main.cpp -o main.exe
   
 Despues simplemente en consola lo corres
 
-  main.exe
+    main.exe
